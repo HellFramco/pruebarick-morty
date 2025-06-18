@@ -21,8 +21,15 @@ si estas en consola que te recomiendo ejecuta luego de estar dentro de la carpet
 
 aqui hara todo lo necesario para correr el proyecto.
 
-
+la url del proyecto es http://127.0.0.1:8000/characters en local
 
 ### DEPENDENCIAS
+
+php
+mysql
+composer
+git
+
+tenerlos instalados para correr el poryecto
 
 ## Es necesario bajar el proyecto y tenerlo en una carpeta en htdocs si se usa xammp si no en la raiz de el servidor y ejecutar el instalation.bat que instala las librerias y la base de datos
