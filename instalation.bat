@@ -9,20 +9,37 @@ set "COMPOSER_CMD=composer"
 set "MYSQL_CMD=mysql"
 
 
-echo :: ============ 1. .ENV ============
+echo :: ============ 1. COMPOSER ============
+echo        Instalando dependencias COMPOSER
+echo :: ============ 1. COMPOSER ============
+where %COMPOSER_CMD% >nul 2>&1
+if errorlevel 1 (
+    echo [ERROR] Composer no esta instalado o no esta en PATH.
+    pause
+    exit /b 1
+)
+call %COMPOSER_CMD% install --no-interaction
+if errorlevel 1 (
+    echo [ERROR] Composer fallo.
+    pause
+    exit /b 1
+)
+
+
+echo :: ============ 2. .ENV ============
 echo        Instalando variables de entorno
-echo :: ============ 1. .ENV ============
+echo :: ============ 2. .ENV ============
 if not exist ".env" (
     copy ".env.example" ".env" >nul
     echo APP_KEY= >> .env
     echo.
-    echo ➤ .env copiado desde .env.example
+    echo.env copiado desde .env.example
 )
 
 
-echo :: ============ 2. .Actualizando variables ============
+echo :: ============ 3. .Actualizando variables ============
 echo        Actualizando variables de entorno
-echo :: ============ 2. .Actualizando variables ============
+echo :: ============ 3. .Actualizando variables ============
 (for /f "delims=" %%A in ('type .env') do (
     echo %%A| findstr /r "DB_DATABASE=" >nul && (
         echo DB_DATABASE=%DB_NAME%
@@ -39,33 +56,16 @@ echo :: ============ 2. .Actualizando variables ============
 move /y .env.tmp .env >nul
 
 
-echo :: ============ 3. Ejecutando migraciones ============
+echo :: ============ 4. Ejecutando migraciones ============
 echo        Laravel key gen
-echo :: ============ 3. Ejecutando migraciones ============
+echo :: ============ 4. Ejecutando migraciones ============
 call %PHP_EXE% artisan key:generate 
 
 
-echo :: ============ 4. Ejecutando migraciones ============
+echo :: ============ 5. Ejecutando migraciones ============
 echo        Laravel BD generando
-echo :: ============ 4. Ejecutando migraciones ============
+echo :: ============ 5. Ejecutando migraciones ============
 call %PHP_EXE% artisan migrate
-
-
-echo :: ============ 5. COMPOSER ============
-echo        Instalando dependencias COMPOSER
-echo :: ============ 5. COMPOSER ============
-where %COMPOSER_CMD% >nul 2>&1
-if errorlevel 1 (
-    echo [ERROR] Composer no esta instalado o no esta en PATH.
-    pause
-    exit /b 1
-)
-call %COMPOSER_CMD% install --no-interaction
-if errorlevel 1 (
-    echo [ERROR] Composer fallo.
-    pause
-    exit /b 1
-)
 
 
 call %PHP_EXE% artisan serve
