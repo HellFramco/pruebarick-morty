@@ -1,0 +1,102 @@
+
+:root{
+    --bs-emphasis-color: #917c7c
+}
+
+body{
+    background: #ffe0e0;
+    padding: 10px 20%;
+}
+
+nav{
+    border: 1px solid #dfc0c0;
+    background-color: #f2d2d2;
+    font-family: 'titulos';
+    text-align: center;
+    color: #c59d9d;
+    border-radius: 30px 80px;
+    padding: 5px;
+    margin: 20px 15px;
+}
+
+.div-nav{
+    width: fit-content;
+}
+
+table {
+    border: 0;
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: separate;
+    -webkit-border-vertical-spacing: 4px;
+    -webkit-border-horizontal-spacing: 1px;
+}
+
+table tbody tr:not(.spacer) {
+    border-radius: 7px;
+    overflow: hidden;
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+}
+
+table tbody tr th:first-child, 
+table tbody tr td:first-child {
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+}
+
+table tbody tr th:last-child,
+table tbody tr td:last-child {
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+table tbody tr th, 
+table tbody tr td {
+    background: #fff;
+    border: none;
+}
+
+.align_center{
+    text-align: center;
+}
+
+.align_center img{
+    width: 50px;
+    border-radius: 7px;
+}
+
+.custombadge{
+    --bs-badge-padding-x: 0.65em;
+    font-size: 10px;
+    padding: 4px 5px !important;
+    --bs-badge-padding-y: 0.35em;
+    --bs-badge-font-size: 0.75em;
+    --bs-badge-font-weight: 700;
+    --bs-badge-color: #fff;
+    --bs-badge-border-radius: var(--bs-border-radius);
+    display: inline-block;
+    font-weight: var(--bs-badge-font-weight);
+    line-height: 1;
+    color: var(--bs-badge-color);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: var(--bs-badge-border-radius);
+}
+
+.form_prueba{
+    width: fit-content;
+    position: fixed;
+    left: 10px;
+    bottom: -10px;
+}
+
+.form_prueba button{
+    color: black;
+    background: antiquewhite;
+    border-radius: 30px 80px;
+    padding: 5px 25px;
+}
