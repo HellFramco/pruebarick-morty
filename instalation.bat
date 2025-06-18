@@ -9,9 +9,9 @@ set "DB_NAME=rick_db"
 set "DB_USER=root"
 set "DB_PASS="        ::clave MySQL
 set "DB_HOST=127.0.0.1"
-set "PHP_EXE=php"     :: si tu php.exe no está en PATH, pon ruta completa
-set "COMPOSER_CMD=composer"
-set "MYSQL_CMD=mysql"
+set "PHP_EXE=C:\xampp\php\php.exe"
+set "COMPOSER_CMD=C:\ProgramData\ComposerSetup\bin\composer.bat"
+set "MYSQL_CMD=C:\xampp\mysql\bin\mysql.exe"
 
 echo.
 echo   ➤ Iniciando instalacion de dependencias...
