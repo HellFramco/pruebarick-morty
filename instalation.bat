@@ -9,12 +9,12 @@ set "DB_NAME=rick_db"
 set "DB_USER=root"
 set "DB_PASS="        ::clave MySQL
 set "DB_HOST=127.0.0.1"
-set "PHP_EXE=C:\xampp\php\php.exe"
-set "COMPOSER_CMD=C:\ProgramData\ComposerSetup\bin\composer.bat"
-set "MYSQL_CMD=C:\xampp\mysql\bin\mysql.exe"
+set "PHP_EXE=php"
+set "COMPOSER_CMD=composer"
+set "MYSQL_CMD=mysql"
 
 echo.
-echo   ➤ Iniciando instalacion de dependencias...
+echo    Instalando dependencias COMPOSER
 echo.
 
 :: ============ 2. COMPOSER ============ 
@@ -24,7 +24,7 @@ if errorlevel 1 (
     pause
     exit /b 1
 )
-%COMPOSER_CMD% install --no-interaction
+%COMPOSER_CMD% install
 if errorlevel 1 (
     echo [ERROR] Composer fallo.
     pause
@@ -56,7 +56,7 @@ if not exist ".env" (
 move /y .env.tmp .env >nul
 
 :: ============ 4. GENERAR APP KEY ============
-%PHP_EXE% artisan key:generate --ansi
+%PHP_EXE% artisan key:generate 
 
 :: ============ 5. CREAR BASE DE DATOS ============
 echo.
@@ -68,23 +68,11 @@ if errorlevel 1 (
 )
 
 :: ============ 6. MIGRACIONES ============
-%PHP_EXE% artisan migrate --force
+%PHP_EXE% artisan migrate
 if errorlevel 1 (
     echo [ERROR] Fallo migrate.
     pause
     exit /b 1
-)
-
-:: ============ 7. (OPCIONAL) Vite ============
-where npm >nul 2>&1
-if %errorlevel%==0 (
-    echo.
-    echo ➤ Instalando dependencias NPM...
-    npm install
-    npm run build
-) else (
-    echo.
-    echo [INFO] Node/NPM no encontrado. Saltando build front‑end.
 )
 
 echo.
