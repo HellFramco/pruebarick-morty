@@ -1,9 +1,4 @@
 @echo off
-:: ────────────────────────────────────────────────
-:: Laravel First‑Run Setup Script  (Windows / XAMPP)
-:: put this file inside your project root and run it
-:: ────────────────────────────────────────────────
-
 :: ============ 1. CONFIGURACIÓN RÁPIDA ============
 set "DB_NAME=rick_db"
 set "DB_USER=root"
@@ -13,25 +8,10 @@ set "PHP_EXE=php"
 set "COMPOSER_CMD=composer"
 set "MYSQL_CMD=mysql"
 
-echo.
-echo    Instalando dependencias COMPOSER
-echo.
 
-:: ============ 2. COMPOSER ============ 
-where %COMPOSER_CMD% >nul 2>&1
-if errorlevel 1 (
-    echo [ERROR] Composer no esta instalado o no esta en PATH.
-    pause
-    exit /b 1
-)
-%COMPOSER_CMD% install
-if errorlevel 1 (
-    echo [ERROR] Composer fallo.
-    pause
-    exit /b 1
-)
-
-:: ============ 3. .ENV ============ 
+echo :: ============ 1. .ENV ============
+echo        Instalando variables de entorno
+echo :: ============ 1. .ENV ============
 if not exist ".env" (
     copy ".env.example" ".env" >nul
     echo APP_KEY= >> .env
@@ -39,7 +19,10 @@ if not exist ".env" (
     echo ➤ .env copiado desde .env.example
 )
 
-:: Actualizar datos de BD en .env
+
+echo :: ============ 2. .Actualizando variables ============
+echo        Actualizando variables de entorno
+echo :: ============ 2. .Actualizando variables ============
 (for /f "delims=" %%A in ('type .env') do (
     echo %%A| findstr /r "DB_DATABASE=" >nul && (
         echo DB_DATABASE=%DB_NAME%
@@ -55,30 +38,36 @@ if not exist ".env" (
 ))> .env.tmp
 move /y .env.tmp .env >nul
 
-:: ============ 4. GENERAR APP KEY ============
-%PHP_EXE% artisan key:generate 
 
-:: ============ 5. CREAR BASE DE DATOS ============
-echo.
-echo ➤ Creando base de datos (si no existe)...
-echo.
-"%MYSQL_CMD%" -u%DB_USER% -p%DB_PASS% -e "CREATE DATABASE IF NOT EXISTS %DB_NAME% CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+echo :: ============ 3. Ejecutando migraciones ============
+echo        Laravel key gen
+echo :: ============ 3. Ejecutando migraciones ============
+call %PHP_EXE% artisan key:generate 
+
+
+echo :: ============ 4. Ejecutando migraciones ============
+echo        Laravel BD generando
+echo :: ============ 4. Ejecutando migraciones ============
+call %PHP_EXE% artisan migrate
+
+
+echo :: ============ 5. COMPOSER ============
+echo        Instalando dependencias COMPOSER
+echo :: ============ 5. COMPOSER ============
+where %COMPOSER_CMD% >nul 2>&1
 if errorlevel 1 (
-    echo [ADVERTENCIA] No se pudo crear la BD automaticamente. Crea %DB_NAME% manualmente si ya existe este mensaje se puede ignorar.
+    echo [ERROR] Composer no esta instalado o no esta en PATH.
+    pause
+    exit /b 1
 )
-
-:: ============ 6. MIGRACIONES ============
-%PHP_EXE% artisan migrate
+call %COMPOSER_CMD% install --no-interaction
 if errorlevel 1 (
-    echo [ERROR] Fallo migrate.
+    echo [ERROR] Composer fallo.
     pause
     exit /b 1
 )
 
-echo.
-echo ────────────────────────────────────────────────
-echo   ✅ Instalacion completa. Ejecuta:
-echo      php artisan serve
-echo   y abre http://127.0.0.1:8000
-echo ────────────────────────────────────────────────
-pause
+
+call %PHP_EXE% artisan serve
+
+start http://127.0.0.1:8000/characters
