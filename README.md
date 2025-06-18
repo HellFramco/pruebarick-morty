@@ -7,14 +7,22 @@ Prueba de Rick & Morty API app en laravel
 
 ### Instalacion
 
-en la raiz de tu servidor debes ejecutar en consola
+Deje un script .bat para la instalacion por primera vez del proyecto para correr en local bajo xammp u otro servidor
+En la raiz de tu servidor debes ejecutar en consola
 
 git clone https://github.com/HellFramco/pruebarick-morty.git
 
 Luego despues de clonarlo te dejara una carpeta llamada pruebarick-morty
 
 Entra a esa carpeta y ejecuta instalation.bat
+si estas en consola que te recomiendo ejecuta luego de estar dentro de la carpeta del proyecto
 
-Deje un script .bat para la instalacion por primera vez del proyecto para correr en local bajo xammp u otro servidor
+.\instalation.bat -> VSCode
+
+aqui hara todo lo necesario para correr el proyecto.
+
+
+
+### DEPENDENCIAS
 
 ## Es necesario bajar el proyecto y tenerlo en una carpeta en htdocs si se usa xammp si no en la raiz de el servidor y ejecutar el instalation.bat que instala las librerias y la base de datos
